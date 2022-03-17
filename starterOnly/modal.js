@@ -43,38 +43,68 @@ function closeModal() {
 
 //TODO existe-t-il une façon simple d'avoir le focus à ouverture modale (accessibilité)?
 
+function errorMessage(id, message) {
+  let error = document.getElementById(id)
+  error.textContent = message
+  error.style.color = 'red'
+  error.style.fontSize = '1rem'
+  //TODO switch avec les messages?
+}
+
 const validate = () => {
   //firstName validation
   const firstName = document.querySelector('#first')
   if (firstName.value.length < 2) {
     //FIXME message par défaut affiché pour 1 caractère...
-    alert('Vous devez indiquer un prénom valide.')
+    errorMessage('first-error', 'Vous devez indiquer un prénom valide.')
     firstName.focus()
     return false
+  } else {
+    errorMessage('first-error', '')
   }
 
   //lastName validation
   const lastName = document.querySelector('#last')
   if (lastName.value.length < 2) {
-    alert('Vous devez indiquer un nom valide.')
+    errorMessage('last-error', 'Vous devez indiquer un nom valide.')
     lastName.focus()
     return false
+  } else {
+    errorMessage('last-error', '')
   }
 
   //email validation
   const email = document.querySelector('#email')
-  if (!email.value.includes('@')) {
-    //TODO conditions demandées?
-    alert('Vous devez indiquer une adresse mail valide.')
+  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value)) {
+    //FIXME ou pattern en attribut html?
+    errorMessage('email-error', 'Vous devez indiquer une adresse mail valide.')
     email.focus()
     return false
+  } else {
+    errorMessage('email-error', '')
+  }
+
+  //birthdate validation
+  const birthDate = document.querySelector('#birthdate')
+  if (!birthDate.value) {
+    errorMessage(
+      'birthdate-error',
+      'Vous devez indiquer une date de naissance.'
+    )
+    birthDate.focus()
+    return false
+  } else {
+    errorMessage('birthdate-error', '')
   }
 
   //quantity validation
   const quantity = document.querySelector('#quantity')
   if (!quantity.value) {
-    alert('Vous devez indiquer un nombre valide.')
+    errorMessage('quantity-error', 'Vous devez indiquer un nombre valide.')
+    quantity.focus()
     return false
+  } else {
+    errorMessage('quantity-error', '')
   }
 
   //Location validation
@@ -85,17 +115,25 @@ const validate = () => {
     }
   })
   if (!selectedLocation) {
-    alert('Vous devez indiquer un lieu.')
+    errorMessage('location-error', 'Vous devez indiquer un lieu.')
     return false
+  } else {
+    errorMessage('location-error', '')
   }
 
   //CGU validation
   const cgu = document.querySelector('#checkbox1')
   if (!cgu.checked) {
-    alert("Vous devez indiquer accepter les conditions d'utilisation.")
+    errorMessage(
+      'CGU-error',
+      "Vous devez accepter les conditions d 'utilisation."
+    )
     return false
+  } else {
+    errorMessage('CGU-error', '')
   }
-//FIXME conserve les données du formulaire par défaut...
+  //FIXME conserve les données du formulaire par défaut...
+
   //validation successful
   return true
 }
