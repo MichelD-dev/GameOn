@@ -29,8 +29,6 @@ function closeModal() {
   modalbg.style.display = 'none'
 }
 
-// FORM VALIDATION //
-
 //firstName validation
 // const firstName = document.querySelector('#first')
 // firstName.addEventListener('blur', () => {
@@ -42,6 +40,14 @@ function closeModal() {
 // })
 
 //TODO existe-t-il une façon simple d'avoir le focus à ouverture modale (accessibilité)?
+
+const confirm = () => {
+  let confirmation = document.getElementById('confirmation-msg')
+  confirmation.textContent = 'Merci ! Votre réservation a bien été reçue.'
+  confirmation.style.fontSize = '1rem'
+}
+
+// FORM VALIDATION //
 
 const validate = () => {
   //firstName validation
@@ -55,7 +61,7 @@ const validate = () => {
 
   //lastName validation
   const lastName = document.querySelector('#last')
-  if (lastName.value.length < 2) {
+  if (lastName.value.length < 2) {//FIXME ou bien minlength comme attribut html?
     alert('Vous devez indiquer un nom valide.')
     lastName.focus()
     return false
@@ -63,8 +69,8 @@ const validate = () => {
 
   //email validation
   const email = document.querySelector('#email')
-  if (!email.value.includes('@')) {
-    //TODO conditions demandées?
+  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value)) {
+  //FIXME ou pattern en attribut html?
     alert('Vous devez indiquer une adresse mail valide.')
     email.focus()
     return false
@@ -95,7 +101,13 @@ const validate = () => {
     alert("Vous devez indiquer accepter les conditions d'utilisation.")
     return false
   }
-//FIXME conserve les données du formulaire par défaut...
+  //FIXME conserve les données du formulaire par défaut...
+
   //validation successful
+  confirm() //FIXME message disparait avec fermeture modale
   return true
 }
+
+// document.querySelector('form[name="reserve"]').addEventListener('submit', e => {
+//   confirm()
+// })
