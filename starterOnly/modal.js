@@ -7,6 +7,7 @@ function editNav() {
   }
 }
 //TODO faire un return (condition) dans les tests validation...
+//TODO vider les chanpms après validation
 // DOM Elements
 const modalbg = document.querySelector('.bground')
 const modalBtn = document.querySelectorAll('.modal-btn')
@@ -41,8 +42,6 @@ firstName.addEventListener('blur', () => {
     errorMessage('first-error', '')
   }
 })
-
-//TODO existe-t-il une façon simple d'avoir le focus à ouverture modale (accessibilité)?
 
 //Error message
 const errorMessage = (id, message) => {
@@ -137,5 +136,11 @@ const validate = e => {
   //validation successful + confirmation message
   const confirmation = document.getElementById('confirmation-msg')
   confirmation.textContent = 'Merci ! Votre réservation a bien été reçue.'
-  confirmation.style.fontSize = '1.2rem'
+  confirmation.classList.toggle('hidden')
+  confirmation.classList.toggle('visible')
+  closeModal()
+  setTimeout(() => {
+    confirmation.classList.toggle('visible')
+    confirmation.classList.toggle('hidden')
+  }, 3500)
 }

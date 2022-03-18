@@ -42,7 +42,7 @@
         <button class="btn-signup modal-btn">
           je m'inscris
         </button><br>
-        <p id="confirmation-msg"></p>
+        <p id="confirmation-msg" class="hidden"></p>
       </div>
       <div class="hero-img">
         <img src="./bg_img.jpg" alt="img" />
@@ -54,12 +54,12 @@
 
     <div class="bground">
       <div class="content">
-        <span class="close"></span> 
+        <span class="close"></span>
         <div class="modal-body">
           <form name="reserve" action="index.html" method="get" onsubmit="validate(event)">
             <div class="formData">
               <label for="first">Prénom</label><br>
-              <input class="text-control" type="text" id="first" name="first"/><br>
+              <input class="text-control" type="text" id="first" name="first" /><br>
               <span id="first-error"></span><br>
             </div>
             <div class="formData">
