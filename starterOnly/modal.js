@@ -19,6 +19,7 @@ modalBtn.forEach(btn => btn.addEventListener('click', launchModal))
 // launch modal form
 function launchModal() {
   modalbg.style.display = 'block'
+  document.getElementById('first').focus()
 }
 
 // close modal event
@@ -29,33 +30,38 @@ function closeModal() {
   modalbg.style.display = 'none'
 }
 
-// FORM VALIDATION //
-
 //firstName validation
-// const firstName = document.querySelector('#first')
-// firstName.addEventListener('blur', () => {
-//   if (firstName.value < 2) {
-//     alert('Vous devez indiquer un prénom valide.')
-//     // firstName.focus()
-//     //FIXME message d'alert en boucle?
-//   }
-// })
+const firstName = document.getElementById('first')
+firstName.addEventListener('blur', () => {
+  if (firstName.value.length < 2) {
+    errorMessage('first-error', 'Vous devez indiquer un prénom valide.')
+    firstName.focus()
+    return false
+  } else {
+    errorMessage('first-error', '')
+  }
+})
 
 //TODO existe-t-il une façon simple d'avoir le focus à ouverture modale (accessibilité)?
 
-function errorMessage(id, message) {
-  let error = document.getElementById(id)
+//Error message
+const errorMessage = (id, message) => {
+  const error = document.getElementById(id)
+  error.style.cssText = `
+  font-size: 1rem;
+  color: red
+  `
   error.textContent = message
-  error.style.color = 'red'
-  error.style.fontSize = '1rem'
-  //TODO switch avec les messages?
 }
 
-const validate = () => {
+// FORM VALIDATION
+const validate = e => {
+  e.preventDefault()
   //firstName validation
-  const firstName = document.querySelector('#first')
+  const firstName = document.getElementById('first')
+  firstName.focus()
+
   if (firstName.value.length < 2) {
-    //FIXME message par défaut affiché pour 1 caractère...
     errorMessage('first-error', 'Vous devez indiquer un prénom valide.')
     firstName.focus()
     return false
@@ -64,7 +70,7 @@ const validate = () => {
   }
 
   //lastName validation
-  const lastName = document.querySelector('#last')
+  const lastName = document.getElementById('last')
   if (lastName.value.length < 2) {
     errorMessage('last-error', 'Vous devez indiquer un nom valide.')
     lastName.focus()
@@ -74,9 +80,8 @@ const validate = () => {
   }
 
   //email validation
-  const email = document.querySelector('#email')
+  const email = document.getElementById('email')
   if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value)) {
-    //FIXME ou pattern en attribut html?
     errorMessage('email-error', 'Vous devez indiquer une adresse mail valide.')
     email.focus()
     return false
@@ -85,7 +90,7 @@ const validate = () => {
   }
 
   //birthdate validation
-  const birthDate = document.querySelector('#birthdate')
+  const birthDate = document.getElementById('birthdate')
   if (!birthDate.value) {
     errorMessage(
       'birthdate-error',
@@ -98,7 +103,7 @@ const validate = () => {
   }
 
   //quantity validation
-  const quantity = document.querySelector('#quantity')
+  const quantity = document.getElementById('quantity')
   if (!quantity.value) {
     errorMessage('quantity-error', 'Vous devez indiquer un nombre valide.')
     quantity.focus()
@@ -108,13 +113,9 @@ const validate = () => {
   }
 
   //Location validation
-  let selectedLocation
-  document.querySelectorAll('input[name="location"]').forEach(location => {
-    if (location.checked) {
-      return (selectedLocation = location.value)
-    }
-  })
-  if (!selectedLocation) {
+  if (
+    document.querySelectorAll('input[name="location"]:checked').length === 0
+  ) {
     errorMessage('location-error', 'Vous devez indiquer un lieu.')
     return false
   } else {
@@ -122,7 +123,7 @@ const validate = () => {
   }
 
   //CGU validation
-  const cgu = document.querySelector('#checkbox1')
+  const cgu = document.getElementById('checkbox1')
   if (!cgu.checked) {
     errorMessage(
       'CGU-error',
@@ -132,8 +133,9 @@ const validate = () => {
   } else {
     errorMessage('CGU-error', '')
   }
-  //FIXME conserve les données du formulaire par défaut...
 
-  //validation successful
-  return true
+  //validation successful + confirmation message
+  const confirmation = document.getElementById('confirmation-msg')
+  confirmation.textContent = 'Merci ! Votre réservation a bien été reçue.'
+  confirmation.style.fontSize = '1.2rem'
 }
