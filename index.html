@@ -5,15 +5,16 @@
   <meta charset="utf-8" />
   <title>Reservation</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="modal.css" />
+  <link rel="stylesheet" href="/css/modal.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/css?family=DM+Sans" rel="stylesheet" />
+  <script src="./js/modal.js" defer></script>
 </head>
 
 <body>
   <div class="topnav" id="myTopnav">
     <div class="header-logo">
-      <img alt="logo" src="Logo.png" width="auto" height="auto" />
+      <img alt="logo" src="./assets/images/Logo.png" width="auto" height="auto" />
     </div>
     <div class="main-navbar">
 
@@ -42,14 +43,24 @@
         <button class="btn-signup modal-btn">
           je m'inscris
         </button><br>
-        <p id="confirmation-msg" class="hidden"></p>
       </div>
       <div class="hero-img">
-        <img src="./bg_img.jpg" alt="img" />
+        <img src="./assets/images/bg_img.jpg" alt="img" />
       </div>
       <button class="btn-signup modal-btn">
         je m'inscris
       </button>
+    </div>
+
+    <div class="bground__confirm">
+      <div class="content">
+        <span class="close"></span>
+        <div class="confirm-modal-body">
+          <p id="confirmation-msg"> Merci !
+            Votre réservation a bien été reçue.</p>
+          <input class="btn-submit btn-close" type="button" value="Fermer" />
+        </div>
+      </div>
     </div>
 
     <div class="bground">
@@ -60,27 +71,27 @@
             <div class="formData">
               <label for="first">Prénom</label><br>
               <input class="text-control" type="text" id="first" name="first" /><br>
-              <span id="first-error"></span><br>
+              <span id="first-error" class="error-message"></span><br>
             </div>
             <div class="formData">
               <label for="last">Nom</label><br>
               <input class="text-control" type="text" id="last" name="last" /><br>
-              <span id="last-error"></span><br>
+              <span id="last-error" class="error-message"></span><br>
             </div>
             <div class="formData">
               <label for="email">E-mail</label><br>
               <input class="text-control" type="email" id="email" name="email" /><br>
-              <span id="email-error"></span><br>
+              <span id="email-error" class="error-message"></span><br>
             </div>
             <div class="formData">
               <label for="birthdate">Date de naissance</label><br>
               <input class="text-control" type="date" id="birthdate" name="birthdate" /><br>
-              <span id="birthdate-error"></span>
+              <span id="birthdate-error" class="error-message"></span>
             </div>
             <div class="formData">
               <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
               <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
-              <span id="quantity-error"></span>
+              <span id="quantity-error" class="error-message"></span>
             </div>
             <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
             <div class="formData">
@@ -108,16 +119,15 @@
               <label class="checkbox-label" for="location6">
                 <span class="checkbox-icon"></span>
                 Portland</label><br>
-              <span id="location-error"></span>
+              <span id="location-error" class="error-message"></span>
             </div>
-
             <div class="formData">
               <input class="checkbox-input" type="checkbox" id="checkbox1" checked />
               <label class="checkbox2-label" for="checkbox1" required>
                 <span class="checkbox-icon"></span>
                 J'ai lu et accepté les conditions d'utilisation.
               </label><br>
-              <span id="CGU-error"></span>
+              <span id="CGU-error" class="error-message"></span>
               <br>
               <input class="checkbox-input" type="checkbox" id="checkbox2" />
               <label class="checkbox2-label" for="checkbox2">
@@ -130,14 +140,12 @@
           </form>
         </div>
       </div>
-    </div>
   </main>
   <footer>
     <p class="copyrights">
       Copyright 2014 - 2022, GameOn Inc.
     </p>
   </footer>
-  <script src="modal.js"></script>
 </body>
 
 </html>

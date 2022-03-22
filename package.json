@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "snowpack": "^3.8.8"
+  },
+  "name": "GameOn-website-FR",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/MichelD-dev/GameOn-website-FR.git",
+  "author": "michelD-dev <delaunaymichel@hotmail.fr>",
+  "license": "MIT",
+  "scripts": {
+    "start": "snowpack dev"
+  }
+}

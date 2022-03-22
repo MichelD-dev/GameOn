@@ -14,7 +14,7 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-image: url('background.png');
+  background-image: url('backgroung.png');
   font-family: var(--font-default);
   font-size: 18px;
   max-width: 1300px;
@@ -170,6 +170,24 @@ main {
   overflow: auto;
   background-color: rgba(26, 39, 156, 0.4);
 }
+.bground__confirm {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(26, 39, 156, 0.4);
+}
+.error {
+  border: 2px solid red;
+}
+.error-message {
+  font-size: 1rem;
+  color: red
+}
 
 .content {
   margin: 5% auto;
@@ -188,6 +206,14 @@ main {
 .modal-body {
   padding: 15px 8%;
   margin: 15px auto;
+}
+.confirm-modal-body {
+  position: relative;
+  width: 500px;
+  height: 950px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 label {
@@ -457,27 +483,33 @@ input[data-error]::after {
   margin-top: 59px;
 }
 #confirmation-msg {
-  font-size: 1.2rem;
   font-weight: normal;
-  line-height: 1.8rem;
-  padding: 15px 23px;
-  background-color: green;
-  border-radius: 7px;
+  padding: 8.5vw;
+  line-height: 2.2rem;
+  text-align: center;
+}
+.btn-close {
+  z-index: 100;
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: auto;
+  text-align: center;
 }
 .visible {
-  visibility: visible;
   opacity: 1;
-  transition: opacity .3s linear;
+  transition: opacity 0.3s linear;
 }
 .hidden {
-  visibility: hidden;
   opacity: 0;
-  transition: visibility 0s .3s, opacity .3s linear;
+  transition: visibility 0s 0.3s, opacity 0.3s linear;
 }
 .hero-img {
   grid-column: span 8;
 }
 .hero-img img {
+  object-fit: cover;
   width: 100%;
   height: 100%;
   display: block;
