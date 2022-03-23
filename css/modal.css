@@ -14,7 +14,7 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-image: url('backgroung.png');
+  /* background-image: url('backgroung.png'); */
   font-family: var(--font-default);
   font-size: 18px;
   max-width: 1300px;
@@ -182,13 +182,18 @@ main {
   overflow: auto;
   background-color: rgba(26, 39, 156, 0.4);
 }
+
+.success {
+  border: 2px solid green;
+}
+
 .error {
   border: 2px solid red;
 }
 
 .error-message {
   font-size: 1rem;
-  color: red
+  color: red;
 }
 
 .content {
@@ -504,13 +509,13 @@ input[data-error]::after {
   text-align: center;
 }
 .visible {
-  opacity: 1;
-  transition: opacity 0.3s linear;
+  display: block;
 }
+
 .hidden {
-  opacity: 0;
-  transition: visibility 0s 0.3s, opacity 0.3s linear;
+  display: none;
 }
+
 .hero-img {
   grid-column: span 8;
 }

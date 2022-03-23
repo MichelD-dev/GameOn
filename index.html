@@ -48,32 +48,36 @@
         <div class="hero-img">
           <img src="./assets/images/bg_img.jpg" alt="img" />
         </div>
+        <button class="btn-signup modal-btn">
+          je m'inscris
+        </button>
       </div>
 
-      <div class="bground__confirm">
+      <div class="bground" id="confirm">
         <div class="content">
-          <span class="close"></span>
+          <span class="close" id="confirm-close"></span>
           <div class="confirm-modal-body">
             <p id="confirmation-msg">
               Merci ! Votre réservation a bien été reçue.
             </p>
-            <input class="btn-submit btn-close" type="button" value="Fermer" />
-          </div>
-        </div>
-      </div>
-      <div class="bground__confirm" id="not-of-legal-age">
-        <div class="content">
-          <span class="close"></span>
-          <div class="confirm-modal-body">
-            <p id="confirmation-msg">Vous devez être majeur pour participer.</p>
-            <input class="btn-submit btn-close" id="refuse-btn-close" type="button" value="Fermer" />
+            <input class="btn-submit btn-close" id="confirm-btn" type="button" value="Fermer" />
           </div>
         </div>
       </div>
 
-      <div class="bground">
+      <div class="bground" id="reject">
         <div class="content">
-          <span class="close"></span>
+          <span class="close" id="reject-close"></span>
+          <div class="confirm-modal-body">
+            <p id="confirmation-msg">Vous devez être majeur pour participer.</p>
+            <input class="btn-submit btn-close" id="reject-btn" type="button" value="Fermer" />
+          </div>
+        </div>
+      </div>
+
+      <div class="bground" id="validation">
+        <div class="content">
+          <span class="close" id="validation-close"></span>
           <div class="modal-body">
             <form
               name="reserve"

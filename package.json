@@ -1,7 +1,4 @@
 {
-  "devDependencies": {
-    "snowpack": "^3.8.8"
-  },
   "name": "GameOn-website-FR",
   "version": "1.0.0",
   "main": "index.js",
@@ -10,5 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "snowpack dev"
+  },
+  "devDependencies": {
+    "snowpack": "^3.8.8"
   }
 }
