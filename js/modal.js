@@ -129,132 +129,167 @@ const errorMessage = (id, message) => {
   }
 }
 
-// FORM VALIDATION FUNCTION
-const validate = e => {
-  /* It prevents the page reload */
-  e.preventDefault()
+// FIRSTNAME VALIDATION:
+/* It checks if the first name is valid. */
+const firstName = document.getElementById('first')
+const isFirstNameValid = () => {
+  let value = first.value.trim().toLowerCase()
 
-  // FIRSTNAME VALIDATION:
-  /* It checks if the first name is valid. */
-  const firstName = document.getElementById('first')
-  if (
-    !first.value
-      .toLowerCase()
-      .match(/^[a-z][a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\._-]{1,}$/)
-  ) {
+  if (!value.match(/^[a-z][ a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ._-]{1,}$/)) {
     errorMessage('first', 'Vous devez indiquer un prénom valide.')
     firstName.focus()
-    return
+    return false
   } else {
     errorMessage('first', '')
-    first.value = first.value.toLowerCase()
+    first.value = value
+    return true
+    //FIXME reduire le nb d'espaces
   }
+}
+// firstName.addEventListener('blur', isFirstNameValid)
+firstName.onblur = isFirstNameValid
+//FIXME différence?
+//FIXME contrainte focus pour xp user?
 
-  // LASTNAME VALIDATION:
-  /* It checks if the last name is valid. */
-  const lastName = document.getElementById('last')
-  if (
-    !last.value
-      .toLowerCase()
-      .match(/^[a-z][a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\._-]{1,}$/)
-  ) {
+// LASTNAME VALIDATION:
+/* It checks if the last name is valid. */
+const lastName = document.getElementById('last')
+const isLastNameValid = () => {
+  let value = last.value.trim().toLowerCase()
+
+  if (!value.match(/^[a-z][ a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ._-]{1,}$/)) {
     errorMessage('last', 'Vous devez indiquer un nom valide.')
     lastName.focus()
-    return
+    return false
   } else {
     errorMessage('last', '')
-    last.value = last.value.toLowerCase()
+    last.value = value
+    return true
   }
+}
+lastName.onblur = isLastNameValid
 
-  // EMAIL VALIDATION:
-  /* It checks if the email is valid. */
-  const email = document.getElementById('email')
-  if (
-    !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-      email.value.toLowerCase()
-    )
-  ) {
+// EMAIL VALIDATION:
+/* It checks if the email is valid. */
+const email = document.getElementById('email')
+const isEmailValid = () => {
+  let value = email.value.trim().toLowerCase()
+
+  if (!value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
     errorMessage('email', 'Vous devez indiquer une adresse mail valide.')
     email.focus()
-    return
+    return false
   } else {
     errorMessage('email', '')
-    email.value = email.value.toLowerCase()
+    email.value = value
+    return true
   }
+}
+email.onblur = isEmailValid
 
-  // BIRTHDATE VALIDATION:
-  /* It checks if the birthdate is valid. */
-  const birthDate = document.getElementById('birthdate')
+// BIRTHDATE VALIDATION:
+/* It checks if the birthdate is valid. */
+const birthDate = document.getElementById('birthdate')
+const isBirthdateValid = () => {
+
   if (!birthDate.value) {
     errorMessage('birthdate', 'Vous devez indiquer une date de naissance.')
     birthDate.focus()
-    return
+    return false
   } else if (new Date(birthDate.value).getTime() > Date.now()) {
     errorMessage(
       'birthdate',
       'La date indiquée est postérieure à la date actuelle.'
     )
     birthDate.focus()
-    return
+    return false
   } else {
     errorMessage('birthdate', '')
+    return birthDate.value
   }
+}
+birthdate.onblur = isBirthdateValid
 
-  // QUANTITY VALIDATION:
-  /* It checks if the quantity is valid. */
-  const quantity = document.getElementById('quantity')
+// QUANTITY VALIDATION:
+/* It checks if the quantity is valid. */
+const quantity = document.getElementById('quantity')
+const isQuantityValid = () => {
+
   if (!quantity.value || typeof +quantity.value === NaN) {
     errorMessage('quantity', 'Vous devez indiquer un nombre valide.')
     quantity.focus()
-    return
+    return false
   } else {
     errorMessage('quantity', '')
+    return true
   }
-
-  // LOCATION VALIDATION:
-  /* It checks if the location is checked. */
+}
+// LOCATION VALIDATION:
+/* It checks if the location is checked. */
+const isLocationChecked = () => {
   if (
     document.querySelectorAll('input[name="location"]:checked').length === 0
   ) {
     errorMessage('location', 'Vous devez indiquer un lieu.')
-    return
+    return false
   } else {
     errorMessage('location', '')
+    return true
   }
+}
+quantity.onblur = isQuantityValid
 
-  // CGU VALIDATION:
-  /* It checks if the CGU checkbox is checked. */
+// CGU VALIDATION:
+/* It checks if the CGU checkbox is checked. */
+const isCGUChecked = () => {
   const cgu = document.getElementById('checkbox1')
   if (!cgu.checked) {
     errorMessage('CGU', "Vous devez accepter les conditions d 'utilisation.")
-    return
+    return false
   } else {
     errorMessage('CGU', '')
+    return true
   }
+}
+// VALIDATION:
 
-  // VALIDATION:
+// FORM VALIDATION FUNCTION
+const validate = e => {
+  /* It prevents the page reload */
+  e.preventDefault()
+
   /**
-   *  It calculate if the user age is above 18 from the provided birthdate
-   * and then accept or refuse the submission
-   */
-  let timeDiff = Date.now() - new Date(birthDate.value).getTime()
-  let diffyears = Math.ceil(timeDiff / (1000 * 3600 * 24) / 365)
+     *  It calculate if the user age is above 18 from the provided birthdate
+     * and then accept or refuse the submission
+     //  */
+  let calcAge = Date.now() - new Date(isBirthdateValid()).getTime()
+  let userAge = Math.ceil(calcAge / (1000 * 3600 * 24) / 365)
 
-  if (diffyears < 18) {
-    launchRefuseModal()
-  } else {
-    launchConfirmModal()
+  if (
+    isFirstNameValid() &&
+    isLastNameValid() &&
+    isEmailValid() &&
+    isBirthdateValid() &&
+    isQuantityValid() &&
+    isLocationChecked() &&
+    isCGUChecked()
+  ) {
+    /* It removes the error class (red border), success class (green border) and empty all the input fields
+     */
+    document
+      .querySelectorAll('input:not([type="button"]):not([type="submit"])')
+      .forEach(input => {
+        input.classList.remove('error')
+        input.classList.remove('success')
+        input.value = ''
+      })
+    /* Closing the modal. */
+    closeModal()
+
+    if (userAge < 18) {
+      launchRefuseModal()
+    } else {
+      launchConfirmModal()
+    }
   }
-
-  /* It removes the error class (red border), success class (green border) and empty all the input fields
-   */
-  document
-    .querySelectorAll('input:not([type="button"]):not([type="submit"])')
-    .forEach(input => {
-      input.classList.remove('error')
-      input.classList.remove('success')
-      input.value = ''
-    })
-  /* Closing the modal. */
-  closeModal()
 }
