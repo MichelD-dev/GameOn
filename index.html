@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>Reservation</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="stylesheet" href="/css/modal.css" />
+    <link rel="stylesheet" href="./assets/css/modal.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -13,7 +13,7 @@
       href="https://fonts.googleapis.com/css?family=DM+Sans"
       rel="stylesheet"
     />
-    <script src="./js/modal.js" defer></script>
+    <script src="./assets/js/modal.js" defer></script>
   </head>
 
   <body>
@@ -35,8 +35,7 @@
     <main>
       <div class="hero-section">
         <div class="hero-content">
-          <h1 class="hero-headline">Marathon national de jeux vidéos
-          </h1>
+          <h1 class="hero-headline">Marathon national<br />de jeux vidéos</h1>
           <p class="hero-text">
             Vous aimez jouer ? Notre prochain évènement gaming est ouvert aux
             réservations... Places limitées !
@@ -46,19 +45,20 @@
         <div class="hero-img">
           <img src="./assets/images/bg_img.jpg" alt="img" />
         </div>
-        <button class="btn-signup modal-btn">
-          je m'inscris
-        </button>
+        <button class="btn-signup modal-btn">je m'inscris</button>
       </div>
 
       <div class="bground" id="confirm">
         <div class="content">
           <span class="close" id="confirm-close"></span>
           <div class="confirm-modal-body">
-            <p id="confirmation-msg">
-              Merci ! Votre réservation a bien été reçue.
-            </p>
-            <input class="btn-submit btn-close" id="confirm-btn" type="button" value="Fermer" />
+            <p>Merci ! Votre réservation a bien été reçue.</p>
+            <input
+              class="btn-submit btn-close"
+              id="confirm-btn"
+              type="button"
+              value="Fermer"
+            />
           </div>
         </div>
       </div>
@@ -67,8 +67,13 @@
         <div class="content">
           <span class="close" id="reject-close"></span>
           <div class="confirm-modal-body">
-            <p id="confirmation-msg">Vous devez être majeur pour participer.</p>
-            <input class="btn-submit btn-close" id="reject-btn" type="button" value="Fermer" />
+            <p>Vous devez être majeur pour participer.</p>
+            <input
+              class="btn-submit btn-close"
+              id="reject-btn"
+              type="button"
+              value="Fermer"
+            />
           </div>
         </div>
       </div>

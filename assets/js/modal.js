@@ -133,15 +133,15 @@ const errorMessage = (id, message) => {
 /* It checks if the first name is valid. */
 const firstName = document.getElementById('first')
 const isFirstNameValid = () => {
-  let value = first.value.trim().toLowerCase()
+  let value = first.value.trim()
 
-  if (!value.match(/^[a-z][ a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ._-]{1,}$/)) {
+  if (!/^[a-z][ a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ._-]{1,}$/i.test(value)) {
     errorMessage('first', 'Vous devez indiquer un prénom valide.')
     firstName.focus()
     return false
   } else {
     errorMessage('first', '')
-    first.value = value
+    first.value = value.toLowerCase()
     return true
     //FIXME reduire le nb d'espaces
   }
@@ -150,20 +150,21 @@ const isFirstNameValid = () => {
 firstName.onblur = isFirstNameValid
 //FIXME différence?
 //FIXME contrainte focus pour xp user?
+//TODO success onchange?
 
 // LASTNAME VALIDATION:
 /* It checks if the last name is valid. */
 const lastName = document.getElementById('last')
 const isLastNameValid = () => {
-  let value = last.value.trim().toLowerCase()
+  let value = last.value.trim()
 
-  if (!value.match(/^[a-z][ a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ._-]{1,}$/)) {
+  if (!/^[a-z][ a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ._-]{1,}$/i.test(value)) {
     errorMessage('last', 'Vous devez indiquer un nom valide.')
     lastName.focus()
     return false
   } else {
     errorMessage('last', '')
-    last.value = value
+    last.value = value.toLowerCase()
     return true
   }
 }
@@ -173,15 +174,19 @@ lastName.onblur = isLastNameValid
 /* It checks if the email is valid. */
 const email = document.getElementById('email')
 const isEmailValid = () => {
-  let value = email.value.trim().toLowerCase()
+  let value = email.value.trim()
 
-  if (!value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+  if (
+    !/^[a-z0-9\-_]+[a-z0-9\.\-_]*@[a-z0-9\-_]{2,}\.[a-z\\.\-_]+[a-z\-_]+/i.test(
+      value
+    )
+  ) {
     errorMessage('email', 'Vous devez indiquer une adresse mail valide.')
     email.focus()
     return false
   } else {
     errorMessage('email', '')
-    email.value = value
+    email.value = value.toLowerCase()
     return true
   }
 }
@@ -191,7 +196,6 @@ email.onblur = isEmailValid
 /* It checks if the birthdate is valid. */
 const birthDate = document.getElementById('birthdate')
 const isBirthdateValid = () => {
-
   if (!birthDate.value) {
     errorMessage('birthdate', 'Vous devez indiquer une date de naissance.')
     birthDate.focus()
@@ -209,13 +213,12 @@ const isBirthdateValid = () => {
   }
 }
 birthdate.onblur = isBirthdateValid
-
+//FIXME class error lors du blank valid
 // QUANTITY VALIDATION:
 /* It checks if the quantity is valid. */
 const quantity = document.getElementById('quantity')
 const isQuantityValid = () => {
-
-  if (!quantity.value || typeof +quantity.value === NaN) {
+  if (!quantity.value) {
     errorMessage('quantity', 'Vous devez indiquer un nombre valide.')
     quantity.focus()
     return false
