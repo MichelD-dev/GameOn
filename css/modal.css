@@ -14,7 +14,6 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  /* background-image: url('backgroung.png'); */
   font-family: var(--font-default);
   font-size: 18px;
   max-width: 1300px;
@@ -71,7 +70,6 @@ img {
 
 main {
   font-size: 130%;
-  font-weight: bolder;
   color: black;
   padding-top: 0.5vw;
   padding-left: 2vw;
@@ -95,6 +93,11 @@ main {
 
 .modal-btn:hover {
   background: #3876ac;
+}
+
+#reject-close,
+#confirm-close {
+  z-index: 1;
 }
 
 .footer {
@@ -505,6 +508,7 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
+
 @media screen and (max-width: 768px) {
   .hero-section {
     display: block;
@@ -514,6 +518,7 @@ footer {
     background: #fff;
     color: #000;
     padding: 20px;
+    min-width: 300px;
   }
   .hero-content::after {
     content: unset;
@@ -550,6 +555,10 @@ footer {
   }
   .topnav a.icon {
     display: block;
+    color: #ff0000;
+  }
+  .topnav a.icon:hover {
+    color: #ffffff;
   }
   .topnav.responsive {
     position: relative;
@@ -579,15 +588,6 @@ footer {
 @media screen and (min-width: 768.1px) and (max-width: 860px) {
   .hero-headline {
     font-size: 4.5rem;
-  }
-}
-
-@media screen and (max-width: 540px) {
-  .topnav a {
-    display: none;
-  }
-  .topnav a.icon {
-    display: block;
   }
 }
 
