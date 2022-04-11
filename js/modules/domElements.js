@@ -20,5 +20,7 @@ export const lastNameInput = document.getElementById('last')
 export const emailInput = document.getElementById('email')
 export const birthDateInput = document.getElementById('birthdate')
 export const quantityInput = document.getElementById('quantity')
-export const checkedLocationsList = document.querySelectorAll('input[name="location"]:checked')
+export const LocationsList = [
+  ...document.querySelectorAll('input[name="location"]'),
+]
 export const CGUInput = document.getElementById('checkbox1')

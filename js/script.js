@@ -41,15 +41,12 @@ let email = {
 
 // FIRSTNAME VALIDATION:
 DOM.firstNameInput.onchange = e => (firstName.value = e.target.value)
-DOM.firstNameInput.onblur = () => isInputValid(firstName)
 
 // LASTNAME VALIDATION:
 DOM.lastNameInput.onchange = e => (lastName.value = e.target.value)
-DOM.lastNameInput.onblur = () => isInputValid(lastName)
 
 // EMAIL VALIDATION:
 DOM.emailInput.onchange = e => (email.value = e.target.value)
-DOM.emailInput.onblur = () => isInputValid(email)
 
 // BIRTHDATE VALIDATION:
 const isBirthdateValid = () => {
@@ -71,11 +68,8 @@ const isBirthdateValid = () => {
   return DOM.birthDateInput.value
 }
 
-DOM.birthDateInput.onblur = isBirthdateValid
-
 // QUANTITY VALIDATION:
 const isQuantityValid = () => {
-  console.log('hello')
   if (!DOM.quantityInput.value) {
     setErrorMessage('quantity', 'Vous devez indiquer un nombre valide.')
     DOM.quantityInput.focus()
@@ -85,13 +79,9 @@ const isQuantityValid = () => {
   return true
 }
 
-DOM.quantityInput.onblur = isQuantityValid //FIXME conflit avec un submit à champs vides corrigés un à un avec un resubmit derrière
-
 // LOCATION VALIDATION:
 const isLocationChecked = () => {
-  if (
-    document.querySelectorAll('input[name="location"]:checked').length === 0
-  ) {
+  if (DOM.LocationsList.filter(location => location.checked).length === 0) {
     setErrorMessage('location', 'Vous devez indiquer un lieu.')
     return false
   }
@@ -133,11 +123,7 @@ const validate = e => {
         input.classList.remove('success')
         input.value = ''
       })
-    document
-      .querySelectorAll('input[name="location"]:checked')
-      .forEach(input => {
-        input.checked = false
-      })
+    DOM.LocationsList.map(location => (location.checked = false))
     firstName.value = lastName.input = email.input = ''
 
     closeModal()
