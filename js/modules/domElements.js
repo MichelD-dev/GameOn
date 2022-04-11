@@ -1,4 +1,6 @@
-// DOM Elements
+/**
+ * * DOM Elements
+ * */
 export const burgerMenu = document.querySelector('.icon')
 
 export const formModal = document.getElementById('validation')
