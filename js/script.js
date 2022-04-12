@@ -50,7 +50,7 @@ let lastName = {
 
 let email = {
   value: '',
-  regex: /^[a-z0-9\-_]+[a-z0-9\.\-_]*@[a-z0-9\-_]{2,}\.[a-z\\.\-_]+[a-z\-_]+/i,
+  regex: /^[a-z0-9\-_]+[a-z0-9\.\-_]*@[a-z0-9\-_]{2,}\.[a-z\\.\-_]+[a-z\-_]+$/i,
   id: 'email',
   errorText: 'Vous devez indiquer une adresse mail valide.',
 }
@@ -107,6 +107,17 @@ const isQuantityValid = () => {
     return false
   }
   /*
+   * En cas de saisie d'une quantité qui n'est pas comprise entre 0 et 99, on affiche un message d'erreur,on remet le focus sur le champ et on renvoie false à destination du test de validation lors du submit
+   */
+  if (DOM.quantityInput.value < 0 || DOM.quantityInput.value > 99) {
+    setErrorMessage(
+      'quantity',
+      'Vous devez indiquer un nombre compris entre 0 et 99.'
+    )
+    DOM.quantityInput.focus()
+    return false
+  }
+  /*
    * En cas de saisie d'une date valide, on reset la fonction d'erreur et on renvoie une valeur "truthy" à destination du test de validation lors du submit
    */
   setErrorMessage('quantity', '')
@@ -139,7 +150,7 @@ const isCGUChecked = () => {
     setErrorMessage('CGU', "Vous devez accepter les conditions d 'utilisation.")
     return false
   }
-    /*
+  /*
    * En cas de checkbox checkée, on reset la fonction d'erreur et on renvoie true à destination du test de validation lors du submit
    */
   setErrorMessage('CGU', '')
@@ -150,7 +161,7 @@ const isCGUChecked = () => {
 const validate = e => {
   /* On prévient le rechargement de la page */
   e.preventDefault()
-/* on vérifie que tous les tests précédents ont renvoyé "true" */
+  /* on vérifie que tous les tests précédents ont renvoyé "true" */
   if (
     isInputValid(firstName) &&
     isInputValid(lastName) &&
@@ -172,7 +183,7 @@ const validate = e => {
         input.classList.remove('success')
         input.value = ''
       })
-      /* On "dé-checke" le champ Location checké */
+    /* On "dé-checke" le champ Location checké */
     DOM.LocationsList.map(location => (location.checked = false))
 
     /* On ferme la modale au moment du submit */
