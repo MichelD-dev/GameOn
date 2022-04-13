@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "tsc -p tsconfig.prod.json",
+    "start": "start http://localhost:5500"
   },
   "devDependencies": {
+    "typescript": "^4.6.3",
     "vite": "^2.9.0"
   }
 }
