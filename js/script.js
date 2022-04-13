@@ -60,14 +60,26 @@ let email = {
 // FIRSTNAME VALIDATION:
 /* Enregistrement du texte entré dans le champ prénom dans l'objet sus-mentionné*/
 DOM.firstNameInput.onchange = e => (firstName.value = e.target.value)
+/* Test de la validité de l'input prénom lorsque l'on quitte le champ */
+DOM.firstNameInput.onblur = () => isInputValid(firstName)
 
 // LASTNAME VALIDATION:
 /* Enregistrement du texte entré dans le champ nom dans l'objet sus-mentionné*/
 DOM.lastNameInput.onchange = e => (lastName.value = e.target.value)
+/* Test de la validité de l'input nom lorsque l'on quitte le champ */
+DOM.lastNameInput.onblur = () => isInputValid(lastName)
 
 // EMAIL VALIDATION:
 /* Enregistrement du texte entré dans le champ email dans l'objet sus-mentionné*/
 DOM.emailInput.onchange = e => (email.value = e.target.value)
+/* Test de la validité de l'input email lorsque l'on quitte le champ */
+DOM.emailInput.onblur = () => isInputValid(email)
+
+/* Test de la validité de l'input birthdate lorsque l'on quitte le champ */
+DOM.birthDateInput.onblur = () => isBirthdateValid()
+
+/* Test de la validité de l'input quantity lorsque l'on quitte le champ */
+DOM.quantityInput.onblur = () => isQuantityValid()
 
 // BIRTHDATE VALIDATION:
 const isBirthdateValid = () => {
