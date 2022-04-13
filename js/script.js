@@ -1,13 +1,28 @@
-import * as DOM from './modules/domElements.js'
-import {
-  launchModal,
-  closeModal,
-  isInputValid,
-  editNav,
-  setErrorMessage,
-} from './modules/utils.js'
+/**
+ * * DOM Elements
+ * */
+const DOM = {
+  burgerMenu: document.querySelector('.icon'),
+  formModal: document.getElementById('validation'),
+  formModalBtn: document.querySelectorAll('.modal-btn'),
+  formModalCloseBtn: document.getElementById('validation-close'),
+  confirmModal: document.getElementById('confirm'),
+  confirmModalBtn: document.getElementById('confirm-btn'),
+  confirmModalCloseBtn: document.getElementById('confirm-close'),
+  refuseModal: document.getElementById('reject'),
+  refuseModalBtn: document.getElementById('reject-btn'),
+  refuseModalCloseBtn: document.getElementById('reject-close'),
+  form: document.getElementById('form'),
+  firstNameInput: document.getElementById('first'),
+  lastNameInput: document.getElementById('last'),
+  emailInput: document.getElementById('email'),
+  birthDateInput: document.getElementById('birthdate'),
+  quantityInput: document.getElementById('quantity'),
+  LocationsList: [...document.querySelectorAll('input[name="location"]')],
+  CGUInput: document.getElementById('checkbox1'),
+}
 
-DOM.burgerMenu.onclick = editNav
+DOM.burgerMenu && (DOM.burgerMenu.onclick = editNav)
 
 /**
  * Ouverture de la modale par click sur les deux boutons d'inscription (desktop/mobile)
@@ -17,26 +32,96 @@ DOM.formModalBtn.forEach(btn => (btn.onclick = () => launchModal()))
 /**
  * Fermeture de la modale par click sur le bouton X
  */
-DOM.formModalCloseBtn.onclick = () => closeModal()
+DOM.formModalCloseBtn && (DOM.formModalCloseBtn.onclick = () => closeModal())
 
 /**
  * Fermeture de la modale de confirmation d'inscription
  */
-DOM.confirmModalBtn.onclick = DOM.confirmModalCloseBtn.onclick = () =>
-  closeModal(DOM.confirmModal)
+DOM.confirmModalBtn &&
+  (DOM.confirmModalBtn.onclick = () => closeModal(DOM.confirmModal))
+DOM.confirmModalCloseBtn &&
+  (DOM.confirmModalCloseBtn.onclick = () => closeModal(DOM.confirmModal))
 
 /**
  * Fermeture de la modale de rejet d'inscription
  */
-DOM.refuseModalBtn.onclick = DOM.refuseModalCloseBtn.onclick = () =>
-  closeModal(DOM.refuseModal)
+DOM.refuseModalBtn &&
+  (DOM.refuseModalBtn.onclick = () => closeModal(DOM.refuseModal))
+
+DOM.refuseModalCloseBtn &&
+  (DOM.refuseModalCloseBtn.onclick = () => closeModal(DOM.refuseModal))
+
+/* Fonction d'ouverture de la modale formulaire par ajout de la classe visible */
+const launchModal = (modal = DOM.formModal) => modal.classList.add('visible')
+
+/* Fonction de fermeture de la modale formulaire par retrait de la classe visible */
+const closeModal = (modal = DOM.formModal) => modal.classList.remove('visible')
+
+/* Fonction d'ouverture du menu burger en mode mobile */
+function editNav() {
+  var x = document.getElementById('myTopnav')
+  if (x.className === 'topnav') {
+    x.className += ' responsive'
+  } else {
+    x.className = 'topnav'
+  }
+}
+
+/**
+ * Fonction de validation des champs firstname, lastname et email
+ * @params - value: texte entré dans l'input
+ * @params - regex: caractères autorisés dans le champ
+ * @params - id: id: id de l'input
+ * @params - errorText: texte à afficher en cas d'erreur
+ */
+const isInputValid = ({ value, regex, id, errorText }) => {
+  let trimmedValue = value.trim()
+
+  /*
+  En cas d'absence de texte dans le champ ou de caractères non autorisés entrés, on appelle la fonction setErrorMessage() avec l'id du champ et le message approprié et on remet le focus sur le champ en erreur, et on renvoie false à destination du test de validation lors du submit
+  */
+  if (!regex.test(trimmedValue) || !value) {
+    setErrorMessage(id, errorText)
+    document.getElementById(id).focus()
+    return false
+  }
+  /*
+En cas de saisie valide de texte, on reset la fonction d'erreur, 
+on affiche dans le champ le texte entré, debarrassé des éventuels espaces avant et après, passé en lowerCase, avec l'éventuel espace entre deux mots réduit à un seul caractère, et on renvoie true à destination du test de validation lors du submit
+*/
+  setErrorMessage(id, '')
+  document.getElementById(id).value = trimmedValue
+    .toLowerCase()
+    .replace(/  +/g, ' ')
+  return true
+}
+
+// FONCTION MESSAGE D'ERREUR:
+const setErrorMessage = (id, message) => {
+  /* On selectionne le champ d'erreur associé à l'input dont on a récupéré l'id */
+  const error = document.getElementById(`${id}-error`)
+  /* On crée une condition testant si le champ en erreur est un champ texte (Text, Number, Date) dont on pourra modifier l'apparence avec une bordure rouge */
+  let fieldIsATextInput = id !== 'location' && id !== 'CGU'
+  /* On affiche le message d'erreur approprié selon l'input */
+  error.textContent = message
+
+  if (fieldIsATextInput) {
+    /* On ajoute une bordure rouge à l'input en erreur quand c'est possible */
+    document.getElementById(id).classList.add('error')
+  }
+  /* S'il n'y a pas de message d'erreur reçu, il s'agit d'un reset, on affiche alors une bordure verte */
+  if (message === '' && fieldIsATextInput) {
+    document.getElementById(id).classList.remove('error')
+    document.getElementById(id).classList.add('success')
+  }
+}
 
 /**
  * Objets contenant une liste de paramètres utiles à chaque input
  */
 let firstName = {
   value: '',
-  regex: /^[a-z][ a-z0-9á-ÿæœ\._\-]{1,}$/i,
+  regex: /^[a-z][ 0-a-z9á-ÿæœ\._\-]{1,}$/i,
   id: 'first',
   errorText: 'Vous devez indiquer un prénom valide.',
 }
@@ -57,15 +142,18 @@ let email = {
 
 // FIRSTNAME VALIDATION:
 /* Enregistrement du texte entré dans le champ prénom dans l'objet sus-mentionné*/
-DOM.firstNameInput.onchange = e => (firstName.value = e.target.value)
+DOM.firstNameInput &&
+  (DOM.firstNameInput.onchange = e => (firstName.value = e.target.value))
 
 // LASTNAME VALIDATION:
 /* Enregistrement du texte entré dans le champ nom dans l'objet sus-mentionné*/
-DOM.lastNameInput.onchange = e => (lastName.value = e.target.value)
+DOM.lastNameInput &&
+  (DOM.lastNameInput.onchange = e => (lastName.value = e.target.value))
 
 // EMAIL VALIDATION:
 /* Enregistrement du texte entré dans le champ email dans l'objet sus-mentionné*/
-DOM.emailInput.onchange = e => (email.value = e.target.value)
+DOM.emailInput &&
+  (DOM.emailInput.onchange = e => (email.value = e.target.value))
 
 // BIRTHDATE VALIDATION:
 const isBirthdateValid = () => {
@@ -199,7 +287,7 @@ const validate = e => {
 }
 
 /* Appel de la fonction de validation lors du click sur le bouton de soumission*/
-DOM.form.onsubmit = validate
+DOM.form && (DOM.form.onsubmit = validate)
 
 /* Lors d'un appui sur la touche Enter, on soumettra si on est sur la modale formulaire, on fermera la modale sinon */
 document.onkeydown = e => {
