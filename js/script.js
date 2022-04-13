@@ -1,3 +1,5 @@
+import '../css/modal.css'
+
 import * as DOM from './modules/domElements.js'
 import {
   launchModal,
