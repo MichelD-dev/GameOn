@@ -1,4 +1,5 @@
 import { formModal } from './domElements.js'
+import { IsInputValid } from './interfaces/isInputValid.js'
 
 /* Fonction d'ouverture de la modale formulaire par ajout de la classe visible */
 const launchModal = (modal = formModal) => modal.classList.add('visible')
@@ -16,16 +17,10 @@ function editNav() {
   }
 }
 
-interface IsInputValid {
-  value: string
-  regex: RegExp
-  id: string
-  errorText: string
-}
 /**
  * Fonction de validation des champs firstname, lastname et email
  */
-const isInputValid = ({ value, regex, id, errorText }: IsInputValid) => {
+ const isInputValid = ({ value, regex, id, errorText }: IsInputValid) => {
   let trimmedValue = value.trim()
 
   /*
@@ -51,7 +46,7 @@ on affiche dans le champ le texte entré, debarrassé des éventuels espaces ava
 const setErrorMessage = (id: string, message: string) => {
   /* On selectionne le champ d'erreur associé à l'input dont on a récupéré l'id */
   const error = document.getElementById(`${id}-error`) as HTMLSpanElement
-   /* On crée une condition testant si le champ en erreur est un champ texte (Text, Number, Date) dont on pourra modifier l'apparence avec une bordure rouge */
+  /* On crée une condition testant si le champ en erreur est un champ texte (Text, Number, Date) dont on pourra modifier l'apparence avec une bordure rouge */
   let fieldIsATextInput = id !== 'location' && id !== 'CGU'
   /* On affiche le message d'erreur approprié selon l'input */
   error && (error.textContent = message)

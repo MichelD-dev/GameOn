@@ -20,19 +20,19 @@ DOM.refuseModalBtn.onclick = DOM.refuseModalCloseBtn.onclick = () => closeModal(
 /**
  * Objets contenant une liste de paramètres utiles à chaque input
  */
-let firstName = {
+const firstName = {
     value: '',
     regex: /^[a-z][ a-z0-9á-ÿæœ\._\-]{1,}$/i,
     id: 'first',
     errorText: 'Vous devez indiquer un prénom valide.',
 };
-let lastName = {
+const lastName = {
     value: '',
     regex: /^[a-z][ a-z0-9á-ÿæœ\._\-]{1,}$/i,
     id: 'last',
     errorText: 'Vous devez indiquer un nom valide.',
 };
-let email = {
+const email = {
     value: '',
     regex: /^[a-z0-9\-_]+[a-z0-9\.\-_]*@[a-z0-9\-_]{2,}\.[a-z\\.\-_]+[a-z\-_]+$/i,
     id: 'email',
@@ -95,8 +95,8 @@ const isQuantityValid = () => {
     /*
      * En cas de saisie d'une quantité qui n'est pas comprise entre 0 et 99, on affiche un message d'erreur,on remet le focus sur le champ et on renvoie false à destination du test de validation lors du submit
      */
-    if (parseInt(DOM.quantityInput.value) < 0 ||
-        parseInt(DOM.quantityInput.value) > 99) {
+    if (DOM.quantityInput.valueAsNumber < 0 ||
+        DOM.quantityInput.valueAsNumber > 99) {
         setErrorMessage('quantity', 'Vous devez indiquer un nombre compris entre 0 et 99.');
         DOM.quantityInput.focus();
         return false;
@@ -192,3 +192,4 @@ document.onkeydown = e => {
         closeModal(DOM.refuseModal);
     }
 };
+//# sourceMappingURL=script.js.map

@@ -1,4 +1,5 @@
 import * as DOM from './modules/domElements.js'
+import { IsInputValid } from './modules/interfaces/isInputValid.js'
 import {
   launchModal,
   closeModal,
@@ -34,21 +35,21 @@ DOM.refuseModalBtn.onclick = DOM.refuseModalCloseBtn.onclick = () =>
 /**
  * Objets contenant une liste de paramètres utiles à chaque input
  */
-let firstName = {
+const firstName: IsInputValid = {
   value: '',
   regex: /^[a-z][ a-z0-9á-ÿæœ\._\-]{1,}$/i,
   id: 'first',
   errorText: 'Vous devez indiquer un prénom valide.',
 }
 
-let lastName = {
+const lastName: IsInputValid  = {
   value: '',
   regex: /^[a-z][ a-z0-9á-ÿæœ\._\-]{1,}$/i,
   id: 'last',
   errorText: 'Vous devez indiquer un nom valide.',
 }
 
-let email = {
+const email: IsInputValid  = {
   value: '',
   regex: /^[a-z0-9\-_]+[a-z0-9\.\-_]*@[a-z0-9\-_]{2,}\.[a-z\\.\-_]+[a-z\-_]+$/i,
   id: 'email',

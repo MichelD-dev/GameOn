@@ -21,3 +21,4 @@ export const LocationsList = [
     ...document.querySelectorAll('input[name="location"]'),
 ];
 export const CGUInput = document.getElementById('checkbox1');
+//# sourceMappingURL=domElements.js.map
