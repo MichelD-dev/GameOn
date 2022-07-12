@@ -10,3 +10,5 @@
 #### Compilé avec Vite
 
 --
+
+#### Version Vanilla Javascript sur la branche Main
